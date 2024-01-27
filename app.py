@@ -16,11 +16,40 @@ def index():
 
 @app.route('/estimate_depth', methods=['POST'])
 def estimate_depth():
-    # Get image URL from the form
-    url = request.form['image_url']
+    # Get selected input type (url or upload)
+    input_type = request.form.get('input_type', 'url')
 
-    # Load image
-    image = Image.open(requests.get(url, stream=True).raw)
+    url = None  # Initialize url variable
+    original_image_base64 = None  # Initialize original_image_base64 variable
+
+    if input_type == 'url':
+        # Get image URL from the form
+        url = request.form.get('image_url', '')
+
+        # Check if the URL is provided
+        if not url:
+            return "Please provide an Image URL."
+    elif input_type == 'upload':
+        # Get uploaded file
+        uploaded_file = request.files.get('file_upload')
+
+        # Check if a file is uploaded
+        if not uploaded_file:
+            return "Please upload an image."
+
+        # Read the image from the file
+        original_image = Image.open(uploaded_file)
+
+        # Convert original image to base64
+        original_image_base64 = image_to_base64(original_image)
+    else:
+        return "Invalid input type"
+
+    if input_type == 'url':
+        # Load image
+        image = Image.open(requests.get(url, stream=True).raw)
+    elif input_type == 'upload':
+        image = original_image
 
     # Inference
     depth = pipe(image)["depth"]
@@ -29,7 +58,8 @@ def estimate_depth():
     depth_base64 = image_to_base64(depth)
 
     # Display image with depth
-    return render_template('result.html', image_url=url, depth_base64=depth_base64)
+    return render_template('result.html', input_type=input_type, image_url=url,
+                           original_image_base64=original_image_base64, depth_base64=depth_base64)
 
 def image_to_base64(image):
     buffered = BytesIO()

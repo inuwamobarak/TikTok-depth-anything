@@ -36,16 +36,19 @@
             font-size: 16px;
             color: #333;
             margin-bottom: 5px;
+            display: block;
         }
 
-        input {
-            width: 100%;
+        input[type="text"],
+        input[type="file"] {
+            width: calc(100% - 22px);
             padding: 10px;
             font-size: 16px;
             margin-bottom: 15px;
             box-sizing: border-box;
             border: 1px solid #ccc;
             border-radius: 5px;
+            display: inline-block;
         }
 
         button {
@@ -67,9 +70,19 @@
 <body>
     <div class="container">
         <h1>Depth Estimation Web App</h1>
-        <form action="/estimate_depth" method="post">
-            <label for="image_url">Image URL:</label>
-            <input type="text" id="image_url" name="image_url" required>
+        <form action="/estimate_depth" method="post" enctype="multipart/form-data">
+            <label>
+                <input type="radio" name="input_type" value="url" checked>
+                Image URL:
+            </label>
+            <input type="text" id="image_url" name="image_url">
+            
+            <label>
+                <input type="radio" name="input_type" value="upload">
+                Upload Image:
+            </label>
+            <input type="file" id="file_upload" name="file_upload" accept="image/*">
+            
             <button type="submit">Estimate Depth</button>
         </form>
     </div>
