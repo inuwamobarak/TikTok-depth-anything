@@ -3,6 +3,7 @@ from PIL import Image
 from transformers import pipeline
 import requests
 from io import BytesIO
+import base64
 
 app = Flask(__name__)
 
@@ -24,8 +25,16 @@ def estimate_depth():
     # Inference
     depth = pipe(image)["depth"]
 
+    # Convert depth image to base64
+    depth_base64 = image_to_base64(depth)
+
     # Display image with depth
-    return render_template('result.html', image_url=url, depth=depth)
+    return render_template('result.html', image_url=url, depth_base64=depth_base64)
+
+def image_to_base64(image):
+    buffered = BytesIO()
+    image.save(buffered, format="PNG")
+    return base64.b64encode(buffered.getvalue()).decode('utf-8')
 
 if __name__ == "__main__":
     app.run(debug=True)
