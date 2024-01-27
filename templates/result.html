@@ -10,5 +10,10 @@
     <img src="{{ image_url }}" alt="Input Image">
     <p>Depth:</p>
     <img src="data:image/png;base64,{{ depth_base64 }}" alt="Depth Image">
+
+    <!-- Download button for Depth Image -->
+    <a href="data:image/png;base64,{{ depth_base64 }}" download="depth_image.png">
+        <button>Download Depth Image</button>
+    </a>
 </body>
 </html>
