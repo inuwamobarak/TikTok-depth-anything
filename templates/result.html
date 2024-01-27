@@ -8,66 +8,97 @@
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
-            margin: 20px;
-            background-color: #f4f4f4;
+            margin: 0;
+            background: linear-gradient(180deg, #e0f3ff, #c1e0ff); /* Gradient background */
         }
 
         h1 {
-            color: #333;
+            color: #0e5039;
+            margin-bottom: 10px;
         }
 
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+            background: #ffffff; /* White background */
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+            overflow: hidden;
+        }
+
+        p {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .image-container div {
+            width: 48%;
         }
 
         img {
             max-width: 100%;
+            height: auto;
             margin-top: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid #bdd7ff; /* Light border color */
+            border-radius: 8px;
+            background-color: #f0f7ff; /* Light blue background for images */
+            transition: transform 0.3s ease-in-out;
         }
 
-        p {
-            color: #555;
-            font-weight: bold;
-            margin-top: 20px;
+        img:hover {
+            transform: scale(1.05); /* Enlarge image on hover */
         }
 
-        button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
+        .download-button {
+            text-decoration: none;
+            padding: 10px;
+            background-color: #4285f4; /* Google Blue */
+            color: #ffffff;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
-            margin-top: 20px;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            display: block; /* Ensure the button takes full width */
+            width: 100%; /* Set button width to 100% */
         }
 
-        button:hover {
-            background-color: #45a049;
+        .download-button:hover {
+            background-color: #357ae8; /* Darker shade on hover */
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Depth Estimation Result</h1>
-        <img src="{{ image_url }}" alt="Input Image">
-        <p>Generated Depth:</p>
-        <img src="data:image/png;base64,{{ depth_base64 }}" alt="Depth Image">
-        
-        <!-- Download button for Depth Image -->
-        <a href="data:image/png;base64,{{ depth_base64 }}" download="depth_image.png">
-            <button>Download Depth Image</button>
+        <div class="image-container">
+            <div>
+                <p style="font-weight: bold; color: #4285f4;">Original Image</p>
+                {% if input_type == 'url' %}
+                    <img src="{{ image_url }}" alt="Original Image">
+                {% elif input_type == 'upload' %}
+                    <img src="data:image/png;base64,{{ original_image_base64 }}" alt="Original Image">
+                {% endif %}
+            </div>
+            <div>
+                <p style="font-weight: bold; color: #4285f4;">Generated Depth Image</p>
+                <img src="data:image/png;base64,{{ depth_base64 }}" alt="Depth Image Preview">
+            </div>
+        </div>
+
+        <!-- Add the download button below the images -->
+        <a class="download-button" href="data:image/png;base64,{{ depth_base64 }}" download="depth_image.png">
+            Download Depth Image
         </a>
     </div>
 </body>
