@@ -4,16 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Depth Estimation Result</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        img {
+            max-width: 100%;
+            margin-top: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            color: #555;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <h1>Depth Estimation Result</h1>
-    <img src="{{ image_url }}" alt="Input Image">
-    <p>Depth:</p>
-    <img src="data:image/png;base64,{{ depth_base64 }}" alt="Depth Image">
-
-    <!-- Download button for Depth Image -->
-    <a href="data:image/png;base64,{{ depth_base64 }}" download="depth_image.png">
-        <button>Download Depth Image</button>
-    </a>
+    <div class="container">
+        <h1>Depth Estimation Result</h1>
+        <img src="{{ image_url }}" alt="Input Image">
+        <p>Generated Depth:</p>
+        <img src="data:image/png;base64,{{ depth_base64 }}" alt="Depth Image">
+        
+        <!-- Download button for Depth Image -->
+        <a href="data:image/png;base64,{{ depth_base64 }}" download="depth_image.png">
+            <button>Download Depth Image</button>
+        </a>
+    </div>
 </body>
 </html>
