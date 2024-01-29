@@ -2,7 +2,8 @@
 
 This project demonstrates the integration of TikTok's "Depth Anything" monocular depth estimation model into a web application using Flask. The web app allows users to generate depth estimation for images, with a download option for the generated depth image.
 
-![image_90unhlp-thumbnail_webp-600x300-ezgif com-webp-to-jpg-converter](https://github.com/inuwamobarak/TikTok-depth-anything/assets/65142149/2012bcc8-f504-4d44-9d95-a7071ee706b7)
+![image_90unhlp-thumbnail_webp-600x300-ezgif com-webp-to-jpg-converter](https://github.com/inuwamobarak/TikTok-depth-anything/assets/65142149/7b95dd95-f0b9-4566-93f6-09ee75515675)
+
 
 ## Table of Contents
 - [Introduction](#introduction)
